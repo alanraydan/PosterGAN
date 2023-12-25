@@ -75,7 +75,7 @@ Training 1:
 
 ("Action" poster generated after Training 1)
 
-![Training 1 Action Poster](training2/poster1.jpg)
+![Training 1 Action Poster](sample_posters/poster1.jpg)
 
 Training 2:
 * Batch size: 64
@@ -85,7 +85,7 @@ Training 2:
 
 ("Action" poster generated after Training 2)
 
-![Training 2 Action Poster](training2/poster2.jpg)
+![Training 2 Action Poster](sample_posters/poster2.jpg)
 
 The posters aren't there yet, and it's unclear if simply more training is need or if there are subtler issues to fix. All I know is that GANs are finicky things to train.
 
@@ -114,15 +114,15 @@ Training 3:
 
 ("Horror" poster generated after Training 3)
 
-![Training 3 Horror Poster](training3/horror.jpg)
+![Training 3 Horror Poster](sample_posters/run3/horror.jpg)
 
 ("Family" poster generated after Training 3)
 
-![Training 3 Family Poster](training3/family.jpg)
+![Training 3 Family Poster](sample_posters/run3/family.jpg)
 
 ("Action" poster generated after Training 3)
 
-![Training 3 Action Poster](training3/action.jpg)
+![Training 3 Action Poster](sample_posters/run3/action.jpg)
 
 *Technical note*:
 
@@ -143,15 +143,15 @@ Training 4:
 
 "Action" poster
 
-![Training 4 Action poster](old/60epochs/action.jpg)
+![Training 4 Action poster](sample_posters/60epochs/action.jpg)
 
 "Drama" poster
 
-![Training 4 Drama poster](old/60epochs/drama.jpg)
+![Training 4 Drama poster](sample_posters/60epochs/drama.jpg)
 
 "Horror Sci-Fi" poster
 
-![Training 4 Horror Sci-Fi poster](old/60epochs/horror_sci-fi.jpg)
+![Training 4 Horror Sci-Fi poster](sample_posters/60epochs/horror_sci-fi.jpg)
 
 The posters may have slightly improved going from 40 to 60 training epochs, but not significantly. The seems to be approaching a plateau which means I will have to look for other ways to improve. This could mean anything from playing with the GAN architecture to messing with learning rates.
 
