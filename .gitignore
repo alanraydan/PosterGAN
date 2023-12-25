@@ -1,0 +1,4 @@
+*.csv
+posters/
+runs/
+__pycache__/
