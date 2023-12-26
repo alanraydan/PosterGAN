@@ -39,7 +39,7 @@ class PosterDataset(Dataset):
         """
         labels_idx = torch.tensor([self._genre2idx[genre.casefold()] for genre in genres], dtype=int)
         multihot = nn.functional.one_hot(labels_idx, num_classes=len(self._genre2idx)).sum(dim=0)
-        return multihot
+        return multihot.float() # Must be float to be passed to Linear layer
     
     def multihot2genres(self, multihot):
         """
@@ -51,7 +51,7 @@ class PosterDataset(Dataset):
         Returns:
             list: List of genres (strings).
         """
-        idxs = torch.nonzero(multihot).squeeze().tolist()
+        idxs = torch.nonzero(multihot.int()).squeeze().tolist()
         genres = [self._genre_set[idx] for idx in idxs]
         return genres
 

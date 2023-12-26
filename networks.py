@@ -92,7 +92,7 @@ class Discriminator(nn.Module):
             # nn.BatchNorm2d(64),
             nn.LeakyReLU(0.2)
         )
-        self.output_layer = nn.Linear(64*30*20 + self.n_classes, 1)
+        self.output_layer = nn.Linear(64*30*20 + self.class_embedding_dim, 1)
     
     def forward(self, x, class_multihot):
         assert x.shape == (x.shape[0], 3, 268, 182), 'Incorrect image shape.'
