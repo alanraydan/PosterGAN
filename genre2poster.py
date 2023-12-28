@@ -13,11 +13,12 @@ def delayed_print(text, delay=0.01):
     print()
 
 
-def main():
+def main(G_path):
     # Instantiate dataset and generator
     dataset = PosterDataset(genre_csv='MovieGenre_cleaned.csv', poster_dir='posters')
     poster_generator = Generator(latent_dim=100, n_classes=len(dataset.genre_set), class_embedding_dim=16)
-    poster_generator.load_state_dict(torch.load('G.pt'))
+    checkpoint = torch.load(G_path)
+    poster_generator.load_state_dict(checkpoint['model_state_dict'])
     poster_generator.eval()
 
     print()
@@ -69,4 +70,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main('G.pt')
