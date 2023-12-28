@@ -1,5 +1,4 @@
 # Main training loop for PosterGAN
-import matplotlib.pyplot as plt
 import torch
 import torch.utils.data
 from torch.utils.tensorboard import SummaryWriter
@@ -15,7 +14,7 @@ lambda_gp = 10
 g_update_freq = 5
 
 batch_size = 64
-epochs = 5
+epochs = 50
 latent_dim = 100
 n_classes = 28
 class_embedding_dim = 16
@@ -33,16 +32,21 @@ dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, s
 
 G = Generator(latent_dim=latent_dim, n_classes=n_classes, class_embedding_dim=class_embedding_dim)
 G.to(device)
+G.load_state_dict(torch.load('G.pt'))
+G.train()
 D = Discriminator(n_classes=n_classes, class_embedding_dim=class_embedding_dim)
 D.to(device)
+D.load_state_dict(torch.load('D.pt'))
+D.train()
 optimizer_G = torch.optim.Adam(G.parameters(), lr=lr, betas=betas)
 optimizer_D = torch.optim.Adam(D.parameters(), lr=lr, betas=betas)
 
 writer = SummaryWriter()
 
-D_losses = []
-G_losses = []
 for epoch in range(epochs):
+
+    print(f'Epoch {epoch}/{epochs}')
+    
     for i, (real_poster, genre_multihot) in enumerate(tqdm(dataloader)):
         real_poster = real_poster.to(device)
         genre_multihot = genre_multihot.to(device)
@@ -70,8 +74,9 @@ for epoch in range(epochs):
         optimizer_D.zero_grad()
         D_loss.backward()
         optimizer_D.step()
-        writer.add_scalar('D_wgan_loss', wgan_loss.item(), epoch * len(dataloader) + i)
-        writer.add_scalar('D_gp_loss', gradient_penalty.item(), epoch * len(dataloader) + i)
+
+        writer.add_scalar('D_wgan_loss', wgan_loss.item(), epoch * len(dataloader) + i + 54_800)
+        writer.add_scalar('D_gp_loss', gradient_penalty.item(), epoch * len(dataloader) + i + 54_800)
 
         # Train Generator
         if i % g_update_freq == 0:
@@ -82,7 +87,7 @@ for epoch in range(epochs):
             G_loss = -torch.mean(fake_score)
             G_loss.backward()
             optimizer_G.step()
-            writer.add_scalar('G_loss', G_loss.item(), epoch * len(dataloader) + i)
+            writer.add_scalar('G_loss', G_loss.item(), epoch * len(dataloader) + i + 54_800)
 
 # Save Generator and Discriminator
 torch.save(G.state_dict(), 'G.pt')
