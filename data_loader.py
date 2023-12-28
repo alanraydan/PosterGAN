@@ -6,12 +6,18 @@ import torch
 from torch import nn
 
 
+def normalize(x):
+    """
+    Normalizes image pixel vales from [0, 255] to [-1, 1].
+    """
+    return x / 127.5 - 1
+
 
 class PosterDataset(Dataset):
     """
     Custom dataset for handling movie poster images and genre labels.
     """
-    def __init__(self, genre_csv, poster_dir, transform=None):
+    def __init__(self, genre_csv='MovieGenre_cleaned.csv', poster_dir='posters', transform=normalize):
         """
         Args:
             genre_csv (string): Path to the csv file with genre labels.
@@ -23,8 +29,9 @@ class PosterDataset(Dataset):
         self.poster_dir = poster_dir
         self.transform = transform
 
-        self._genre_set = sorted(set(self.movie_ids_and_genres['Genre'].str.split('|').explode()))
-        self._genre2idx = {genre.casefold(): idx for idx, genre in enumerate(self._genre_set)}
+        self.genre_set = sorted(set(self.movie_ids_and_genres['Genre'].str.split('|').explode()))
+        self._genre2idx = {genre.casefold(): idx for idx, genre in enumerate(self.genre_set)}
+        self.n_genres = len(self.genre_set)
 
     def genres2multihot(self, genres):
         """
@@ -52,7 +59,7 @@ class PosterDataset(Dataset):
             list: List of genres (strings).
         """
         idxs = torch.nonzero(multihot.int()).squeeze().tolist()
-        genres = [self._genre_set[idx] for idx in idxs]
+        genres = [self.genre_set[idx] for idx in idxs]
         return genres
 
     def __len__(self):

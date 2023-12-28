@@ -16,7 +16,7 @@ def delayed_print(text, delay=0.01):
 def main():
     # Instantiate dataset and generator
     dataset = PosterDataset(genre_csv='MovieGenre_cleaned.csv', poster_dir='posters')
-    poster_generator = Generator(latent_dim=100, n_classes=len(dataset._genre_set), class_embedding_dim=16)
+    poster_generator = Generator(latent_dim=100, n_classes=len(dataset.genre_set), class_embedding_dim=16)
     poster_generator.load_state_dict(torch.load('G.pt'))
     poster_generator.eval()
 
@@ -28,8 +28,8 @@ def main():
     print()
 
     # Print all genres with three genres to a line evenly separated so that each line is roughly 80 characters long
-    for i in range(0, len(dataset._genre_set), 4):
-        print(f'{dataset._genre_set[i]:<18}{dataset._genre_set[i + 1]:<18}{dataset._genre_set[i + 2]:<18}{dataset._genre_set[i + 3]:<18}')
+    for i in range(0, len(dataset.genre_set), 4):
+        print(f'{dataset.genre_set[i]:<18}{dataset.genre_set[i + 1]:<18}{dataset.genre_set[i + 2]:<18}{dataset.genre_set[i + 3]:<18}')
         time.sleep(0.1)
     print()
 
@@ -43,10 +43,10 @@ def main():
             genres = [genre.capitalize() for genre in genres]
 
             lower_genres = [genre.casefold() for genre in genres]
-            lower__genre_set = [genre.casefold() for genre in dataset._genre_set]
+            lower_genre_set = [genre.casefold() for genre in dataset.genre_set]
 
             # Check if genres are valid
-            if set(lower_genres) <= set(lower__genre_set):
+            if set(lower_genres) <= set(lower_genre_set):
                 genres_are_valid = True
             else:
                 delayed_print('Invalid genre(s). Please try again.')
