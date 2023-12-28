@@ -2,7 +2,6 @@
 import torch
 import torch.utils.data
 from torch.utils.tensorboard import SummaryWriter
-from tqdm import tqdm
 
 from networks import Generator, Discriminator
 from trainer import Trainer
