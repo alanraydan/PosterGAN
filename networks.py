@@ -24,12 +24,12 @@ class Generator(nn.Module):
         self.input_layer = nn.Linear(self.latent_dim + self.class_embedding_dim, 128*30*20)
 
         self.deconv1 = nn.Sequential(
-            nn.ConvTranspose2d(128, 128, kernel_size=(6, 5), stride=2),
+            nn.ConvTranspose2d(128, 128, kernel_size=(6, 5), stride=2, bias=False),
             nn.BatchNorm2d(128),
             nn.ReLU()
         )
         self.deconv2 = nn.Sequential(
-            nn.ConvTranspose2d(128, 64, kernel_size=(6, 5), stride=2),
+            nn.ConvTranspose2d(128, 64, kernel_size=(6, 5), stride=2, bias=False),
             nn.BatchNorm2d(64),
             nn.ReLU()
         )
