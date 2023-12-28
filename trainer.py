@@ -28,6 +28,9 @@ class Trainer:
         self.G.to(self.device)
         self.D.to(self.device)
 
+        self.G.train()
+        self.D.train()
+
     def _update_D(self, real_image, genre_multihot):
 
         batch_size = real_image.shape[0]
