@@ -11,7 +11,7 @@ class Generator(nn.Module):
     """
     Generator network for conditional WGAN.
     
-    Output image size: (batch_size, 3, 268, 182)
+    Output image size for Poster Dataset: (batch_size, 3, 268, 182)
     """
     def __init__(self, latent_dim, n_classes, class_embedding_dim):
         super(Generator, self).__init__()
@@ -69,7 +69,7 @@ class Discriminator(nn.Module):
     """
     Discriminator network for conditional WGAN.
 
-    Input image size: (batch_size, 3, 268, 182)
+    Input image size for Poster Dataset: (batch_size, 3, 268, 182)
     """
     def __init__(self, n_classes, class_embedding_dim):
         super(Discriminator, self).__init__()
