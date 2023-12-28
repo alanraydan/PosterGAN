@@ -2,3 +2,4 @@
 posters/
 runs/
 __pycache__/
+test*
